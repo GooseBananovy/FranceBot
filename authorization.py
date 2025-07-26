@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from telegram import Update
+from telegram import Update, ReplyKeyboardRemove
 from telegram.ext import ContextTypes
 import constants
 
@@ -15,7 +15,7 @@ async def authorize(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 
     context.user_data['mode'] = 'authorization'
 
-    await update.message.reply_text(constants.AUTH_ASK)
+    await update.message.reply_text(constants.AUTH_ASK, reply_markup=ReplyKeyboardRemove())
 
 async def handle_authorization(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
 

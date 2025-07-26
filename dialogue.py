@@ -24,7 +24,7 @@ async def start_dialogue(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
 
     await update.message.reply_text(
         constants.DIALOGUE_START_MESS,
-        reply_markup=ReplyKeyboardMarkup([['/dialogue', '/stop']], resize_keyboard=True)
+        reply_markup=ReplyKeyboardMarkup(constants.DIAL_BUTTONS, resize_keyboard=True)
     )
 
 async def handle_dialogue(update: Update, context: ContextTypes.DEFAULT_TYPE) -> None:
@@ -36,7 +36,7 @@ async def handle_dialogue(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
 
     response = await get_ai_response(messages=context.user_data['history'])
     if not response:
-        await update.message.reply_text(f'API Error. Please tell it to bot-creator')
+        await update.message.reply_text(constants.UNKNOWN_ERR)
         return
 
     model_message = {
