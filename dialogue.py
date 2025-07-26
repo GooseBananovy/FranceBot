@@ -1,6 +1,6 @@
 import constants
 from ai_settings import get_ai_response
-from telegram import Update, ReplyKeyboardMarkup, ReplyKeyboardRemove
+from telegram import Update, ReplyKeyboardMarkup
 from telegram.ext import ContextTypes
 from authorization import check_authorization
 
@@ -14,8 +14,7 @@ async def start_dialogue(update: Update, context: ContextTypes.DEFAULT_TYPE) -> 
     if 'mode' in context.user_data:
         await update.message.reply_text(
             constants.SWITCH_MESS.format(context.user_data['mode'], mode) if context.user_data['mode'] != mode
-            else constants.RESET_MESS.format(mode),
-            reply_markup=ReplyKeyboardRemove()
+            else constants.RESET_MESS.format(mode)
         )
 
     context.user_data.update({
@@ -46,8 +45,5 @@ async def handle_dialogue(update: Update, context: ContextTypes.DEFAULT_TYPE) ->
     }
     context.user_data['history'].append(model_message)
 
-    await update.message.reply_text(
-        response,
-        reply_markup=ReplyKeyboardMarkup([['/dialogue', '/stop']]   , resize_keyboard=True)
-    )
+    await update.message.reply_text(response)
 

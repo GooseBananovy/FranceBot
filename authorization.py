@@ -1,6 +1,6 @@
 import os
 from dotenv import load_dotenv
-from telegram import Update, ReplyKeyboardRemove
+from telegram import Update
 from telegram.ext import ContextTypes
 import constants
 
@@ -31,8 +31,5 @@ async def check_authorization(update: Update, context: ContextTypes.DEFAULT_TYPE
     if 'activate' in context.user_data and context.user_data['activate']:
         return True
 
-    await update.message.reply_text(
-        constants.MISS_AUTH,
-        reply_markup=ReplyKeyboardRemove()
-    )
+    await update.message.reply_text(constants.MISS_AUTH)
     return False
